@@ -4,8 +4,9 @@
 	<base href ="/">
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>JustinNestEgg</title>
-	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<title>TenantCtrl</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular.min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.18/angular-route.min.js"></script>
     <script src="angular.js" type="text/javascript"></script>
@@ -26,7 +27,7 @@
 		</div>
 		<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 			<ul class="nav navbar-nav navbar-right">
-				<li><a href="/requests">Tenants</a></li>
+				<li><a href="/">Home</a></li>
 				<li><a href="/contractors">Contractors</a></li>
 				<li><a href="/contact">Contact</a></li>
 			</ul>
@@ -34,16 +35,8 @@
 	</div>
 </nav>
 
-	<div ng-controller="PageCtrl">
-		{{ location }}
+	<div ng-controller="TenantCtrl">
+		<pre>{{ requests }}</pre>
 	</div>
-	<iframe
-    allow="microphone;"
-    width="350"
-    height="430"
-    src="https://console.dialogflow.com/api-client/demo/embedded/4bfdb8b7-19e6-4a26-93c8-3031b7d7f9cb">
-	</iframe>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-<script src="js/bootstrap.min.js"></script>
 </body>
 </html>

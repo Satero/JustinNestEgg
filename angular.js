@@ -42,45 +42,17 @@ app.controller('ContractorCtrl', ["$scope", "$http", function($scope, $http) {
 	$http.post("/contractorsql")
 	.then(function (response) {
 		console.warn(response.data);
-		var requests = "List of available contractors for hire: \n\n";
+		var contractors = "List of available contractors for hire: \n\n";
 		if (response.data.length > 0) {
 			for (var i = 0; i < response.data.length; i++) {
-				requests += response.data[i]['name'] + ' at ' + response.data[i]['number'] + '\n';
+				var number = response.data[i]['number'];
+				var formatNumber = number.substring(0, 3) + "-" + number.substring(3, number.length);
+				contractors += response.data[i]['name'] + ', Phone: ' + formatNumber + '\n';
 			}
-			$scope.requests = requests;
+			$scope.contractors = contractors;
 		} else {
-			$scope.requests = "There are no contactors available at this time. Please check back later.";
+			$scope.contractors = "There are no contactors available at this time. Please check back later.";
 		}
 	});
 	console.warn("Finished!");
 }]);
-
-// function mainController($scope, $http) {
-// 	$http.get('/requests')
-// 		.success(function(data) {
-// 			console.warn(data);
-// 			// con.connect(function(err) {
-// 			//   if (err) throw err;
-// 			//   console.warn("Connected!");
-// 			//   var sql = "INSERT INTO requests (issue) VALUES (${data})";
-// 			//   con.query(sql, function (err, result) {
-// 			//     if (err) throw err;
-// 			//     console.warn("1 record inserted");
-// 			//   });
-// 			// });
-// 		})
-// 		.error(function(data) {
-// 			console.warn('Error in requests get: ' + data);
-// 		});
-
-// 	$scope.createRequest = function() {
-// 		$http.post('/requests', $scope.requestForm)
-// 			.success(function(data) {
-// 				$scope.requestForm = {};
-// 				$scope.requests = data;
-// 			})
-// 			.error(function(data) {
-// 				console.warn('Error in requests post: ' + data);
-// 			});
-// 	};
-// }

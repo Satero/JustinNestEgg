@@ -30,6 +30,22 @@ fs.readFile("./requests.html", function(err, html) {
 	});
 });
 
+fs.readFile("./contractors.html", function(err, html) {
+	app.get("/contractors", function(req, res) {
+		res.writeHeader(200, {"Content-Type": "text/html"});
+		res.write(html);
+		res.end();
+	});
+});
+
+fs.readFile("./contact.html", function(err, html) {
+	app.get("/contact", function(req, res) {
+		res.writeHeader(200, {"Content-Type": "text/html"});
+		res.write(html);
+		res.end();
+	});
+});
+
 fs.readFile("./angular.js", function(err, js) {
 	app.get("/angular.js", function(req, res) {
 		res.writeHeader(200, {"Content-Type": "text/js"});
@@ -58,6 +74,7 @@ app.post("/", function(req, res) {
 	req.on('data', (chunk) => {
 		res.writeHeader(200, {"Content-Type": "text/json"});
 		// console.warn(JSON.parse(chunk.toString()));
+		var timestamp = (new Date()).toUTCString();
 		var incomingRequest = JSON.parse(chunk.toString());
 		var queryResult = incomingRequest['queryResult'];
 		var queryText = queryResult['queryText'];
@@ -69,10 +86,10 @@ app.post("/", function(req, res) {
 		// console.warn(JSON.stringify(finalResponse));
 		con.connect(function(err) {
 			if (err) {
-				console.warn(`Error found in requests: ${err}`);
+				console.warn(`Error found in logs: ${err}`);
 				// throw err;
 			}
-			var requests = `INSERT INTO logs VALUES ("${queryText}", "${action}", "${reply}")`;
+			var requests = `INSERT INTO logs VALUES ("${timestamp}", "${queryText}", "${action}", "${reply}")`;
 			con.query(requests, function(err, result) {
 				if (err) throw err;
 				// answer = result;
@@ -102,61 +119,21 @@ app.post("/tenantsql", function(req, res) {
 	});
 });
 
+app.post("/contractorsql", function(req, res) {
+	con.connect(function(err) {
+		if (err) {
+			console.warn(`Error found in contractors: ${err}`);
+			// throw err;
+		}
+		var requests = "SELECT * from contractors";
+		con.query(requests, function(err, result) {
+			if (err) throw err;
+			answer = result;
+			// console.warn(answer);
+			res.json(answer);
+			res.end();
+		});
+	});
+});
+
 app.listen(8080);
-
-// fs.readFile("./index.html", function(err, html) {
-// 	http.createServer(function (req, res) {
-// 		// con.connect(function(err) {
-// 		//   if (err) throw err;
-// 		//   console.warn("Connected!");
-// 		//   var sql = "INSERT INTO test (input) VALUES ('Hello world')";
-// 		//   con.query(sql, function (err, result) {
-// 		//     if (err) throw err;
-// 		//     console.warn("1 record inserted");
-// 		//   });
-// 		// });
-
-// 		var finalResponse = "Hello world?";
-// 		console.warn(req.headers);
-// 		console.warn(req.method);
-// 		// console.warn(req.data);
-
-// 		req.on('data', (chunk) => {
-// 		  // console.warn("Uh yeah");
-// 		  // console.warn(`Received ${chunk.length} bytes of data.`);
-// 		  try {
-// 			  // console.warn(chunk.toString());
-// 			  var queryResult = JSON.parse(chunk.toString())['queryResult']
-// 			  var action = queryResult['action'];
-// 			  var reply = actionToResponse(action);
-// 			  // console.warn(reply);
-// 			  finalResponse = craftFullResponse(queryResult['fulfillmentText'], queryResult['fulfillmentMessages'], reply, queryResult['outputContexts']);
-// 			  // console.warn("Testing...");
-// 			  // console.warn(JSON.stringify(finalResponse));
-// 			  res.end(JSON.stringify(finalResponse));
-// 			  console.warn(res.finished);
-// 		  } catch(err) {
-// 		  	res.write("Hello world!");
-// 		  	res.end();
-// 		  }
-// 		});
-
-// 		if (req.method == "GET") {
-// 			res.writeHeader(200, {"Content-Type": "text/html"});
-// 			res.write(html);
-// 			res.end();
-// 		}
-// 	}).listen(8080);
-// });
-// var app = angular.module('JustinNestEgg', []);
-
-// app.config(['$routes', function ($routes) {
-// 	$routes.when("/", {url: "./home.html", controller: "mainCtrl"})
-// }]);
-
-// app.use(bodyParser.urlencoded({
-// 	extended: true
-// }));
-
-// app.use(bodyParser.json());
-// app.
