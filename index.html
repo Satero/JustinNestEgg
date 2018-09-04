@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+
+<head>
+	<base href ="/">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>JustinNestEgg</title>
+	<link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css">
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.8/angular.min.js"></script>
+    <script src="core.js"></script>
+
+</head>
+<html ng-app="core">
+<body ng-controller="mainController">
+	<iframe
+    allow="microphone;"
+    width="350"
+    height="430"
+    src="https://console.dialogflow.com/api-client/demo/embedded/4bfdb8b7-19e6-4a26-93c8-3031b7d7f9cb">
+	</iframe>
+	<div class="container">
+		<form>
+			<input type="text" ng-model="formData.text">
+			<button type="submit" ng-click="createRequest()">Submit request</button>
+		</form>
+	</div>
+</body>
+</html>
