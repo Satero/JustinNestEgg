@@ -14,6 +14,10 @@ module.exports = function craftFullResponse(fulfillmentText, fulfillmentMessages
   fullResponse['fulfillmentMessages'] = fulfillmentMessages;
   fullResponse['source'] = 'google';
   fullResponse['payload'] = {'google': craftGoogleResponse(reply)};
-  fullResponse['outputContexts'] = outputContexts;
+  if (typeof outputContexts != "undefined") {
+    fullResponse['outputContexts'] = outputContexts;
+  } else {
+    fullResponse['outputContexts'] = [];
+  }
   return fullResponse;
 }

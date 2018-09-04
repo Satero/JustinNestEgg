@@ -13,24 +13,25 @@ var con = mysql.createConnection({
   database: "nestegg"
 });
 
-app.get("/requests", function(req, res) {
-	app.controller('myCtrl', function($scope) {
-		$scope.
-	}
-	var answer = "Hello world";
-	con.connect(function(err) {
-		if (err) throw err;
-		var requests = "SELECT * from requests";
-		con.query(requests, function(err, result) {
-			if (err) throw err;
-			answer = result;
-			res.write(answer);
-			res.end();
-		});
-	});
-	// res.write(answer);
-	// res.end();
-});
+// app.get("/requests", function(req, res) {
+// 	var answer = "Hello world";
+// 	con.connect(function(err) {
+// 		if (err) {
+// 			console.warn("Error found in requests: {err}");
+// 			throw err;
+// 		}
+// 		var requests = "SELECT * from requests";
+// 		con.query(requests, function(err, result) {
+// 			if (err) throw err;
+// 			answer = result;
+// 			console.warn(answer);
+// 			res.json(answer);
+// 			res.end();
+// 		});
+// 	});
+// 	// res.write(answer);
+// 	// res.end();
+// });
 
 fs.readFile("./index.html", function(err, html) {
 	app.get("/", function(req, res) {
@@ -38,6 +39,14 @@ fs.readFile("./index.html", function(err, html) {
 		res.write(html);
 		res.end();
 	});
+});
+
+fs.readFile("./angular.js", function(err, js) {
+	app.get("/angular.js", function(req, res) {
+		res.writeHeader(200, {"Content-Type": "text/js"});
+		res.write(js);
+		res.end();
+	})
 });
 
 app.post("/", function(req, res) {
@@ -53,6 +62,23 @@ app.post("/", function(req, res) {
 		res.end(JSON.stringify(finalResponse));
 	});
 });
+
+app.post("/tenantsql", function(req, res) {
+	con.connect(function(err) {
+		if (err) {
+			console.warn("Error found in requests: {err}");
+			throw err;
+		}
+		var requests = "SELECT * from requests";
+		con.query(requests, function(err, result) {
+			if (err) throw err;
+			answer = result;
+			console.warn(answer);
+			res.json(answer);
+			res.end();
+		});
+	});
+})
 
 
 
