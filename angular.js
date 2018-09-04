@@ -14,16 +14,45 @@ app.config(['$routeProvider', function ($routeProvider) {
 }]);
 
 app.controller('PageCtrl', ["$scope", function($scope, $location, $http) {
-	console.warn(`Now at ${location}`);
-	$scope.location = `Now at ${location}`;
+	// console.warn(`Now at ${location}`);
+	// $scope.location = `Now at ${location}`;
 	// $scope.title = $location;
 }]);
 
-app.controller('TenantCtrl', ["$scope", function($scope, $location, $http) {
+app.controller('TenantCtrl', ["$scope", "$http", function($scope, $http) {
+	console.warn("Starting...");
 	$http.post("/tenantsql")
 	.then(function (response) {
-		$scope.requests = response.data.records;
+		console.warn(response.data);
+		var requests = "List of current tenant issues: \n\n";
+		if (response.data.length > 0) {
+			for (var i = 0; i < response.data.length; i++) {
+				requests += response.data[i]['issue'] + ' at ' + response.data[i]['address'] + '\n';
+			}
+			$scope.requests = requests;
+		} else {
+			$scope.requests = "There are no requests at this time. Please check back later.";
+		}
 	});
+	console.warn("Finished!");
+}]);
+
+app.controller('ContractorCtrl', ["$scope", "$http", function($scope, $http) {
+	console.warn("Starting...");
+	$http.post("/contractorsql")
+	.then(function (response) {
+		console.warn(response.data);
+		var requests = "List of available contractors for hire: \n\n";
+		if (response.data.length > 0) {
+			for (var i = 0; i < response.data.length; i++) {
+				requests += response.data[i]['name'] + ' at ' + response.data[i]['number'] + '\n';
+			}
+			$scope.requests = requests;
+		} else {
+			$scope.requests = "There are no contactors available at this time. Please check back later.";
+		}
+	});
+	console.warn("Finished!");
 }]);
 
 // function mainController($scope, $http) {
