@@ -1,14 +1,12 @@
 var mysql = require('mysql');
+
+# outdated 
 var con = mysql.createConnection({
   host: "justinnestegg.c9s5lsbaxpeu.us-west-2.rds.amazonaws.com",
   user: "justin",
-  password: "notrealpassword",
+  password: "", # secret
   database: "nestegg"
 });
-
-//aws rds details:
-//user: "justin"
-//password: "notrealpassword"
 
 module.exports = function actionToResponse(action, queryResult) {
 	if (action == 'input.welcome') {
