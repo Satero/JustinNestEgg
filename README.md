@@ -1,4 +1,4 @@
-# JustinNestEgg: a chatbot-hosting website making communications between tenants, landlords and contractors simple
+# JustinNestEgg: a chatbot-hosting website making it simple for tenants, landlords, and contractors to talk
 
 For a coding challenge I had for a company I was applying to, they asked me to create a website that mediated communications between tenants, landlords and contractors. It was to be mainly written in Node.js and Angular, both of which I had no prior experience with. It would host a chatbot on the website that would make it convenient for tenants to report their issues to the landlord through indirect communication, so that landlords are not ovewhelmed by calls to their office. Landlords could then get in contact with contractors to go and service the rental property.
 
