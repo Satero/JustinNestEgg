@@ -6,10 +6,11 @@ var actionToResponse = require('./actionLogic');
 var craftFullResponse = require('./fullResponse');
 var fs = require('fs');
 
+# outdated
 var con = mysql.createConnection({
   host: "justinnestegg.c9s5lsbaxpeu.us-west-2.rds.amazonaws.com",
   user: "justin",
-  password: "notrealpassword",
+  password: "", # secret
   database: "nestegg",
   port: 3306
 });
