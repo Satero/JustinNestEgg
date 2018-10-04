@@ -1,10 +1,4 @@
 var app = angular.module('angular', ['ngRoute']);
-// var con = mysql.createConnection({
-//   host: "localhost",
-//   user: "root",
-//   password: "password",
-//   database: "nestegg"
-// });
 
 app.config(['$routeProvider', function ($routeProvider) {
 	$routeProvider
